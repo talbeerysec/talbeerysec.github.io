@@ -39,6 +39,11 @@ function progressUpdate(packet){
 
 function recognizeFile(file){
 	document.querySelector("#log").innerHTML = ''
+	var fr = new FileReader();
+    fr.onload = function () {
+            document.getElementById('outImage').src = fr.result;
+        }
+    fr.readAsDataURL(file);
 
 	Tesseract.recognize(file, {
 		lang: document.querySelector('#langsel').value
@@ -124,6 +129,7 @@ function recognizeFile(file){
 </select>
 
 <input type="file" onchange="recognizeFile(window.lastFile=this.files[0])">
+<img id="outImage">
 
 <div id="log"></div>
 
